@@ -2,12 +2,7 @@ import smtplib
 import email.message, requests
 from time import sleep
 
-cotacao_anterior = 4.9938
-
-url = 'https://economia.awesomeapi.com.br/last/USD-BRL'
-response = requests.get(url=url)
-response_json = response.json()
-cotacao_atual = float(response_json['USDBRL']['bid'])
+cotacao_anterior = 0
 
 def enviar_email(cotacao: float):
     corpo_email = f"""
@@ -33,8 +28,14 @@ def enviar_email(cotacao: float):
 
 print('Initializing App...')
 
-if cotacao_atual != cotacao_anterior:
-    enviar_email(cotacao_atual)
-    cotacao_anterior = cotacao_atual
-    print(cotacao_atual)
+while True:
+    url = 'https://economia.awesomeapi.com.br/last/USD-BRL'
+    response = requests.get(url=url)
+    response_json = response.json()
+    cotacao_atual = float(response_json['USDBRL']['bid'])
+    if cotacao_atual != cotacao_anterior:
+        enviar_email(cotacao_atual)
+        cotacao_anterior = cotacao_atual
+        print(cotacao_atual)
+    sleep(10)
 
