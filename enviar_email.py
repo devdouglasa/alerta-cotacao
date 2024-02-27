@@ -13,9 +13,9 @@ def enviar_email(cotacao: float):
 
     msg = email.message.Message()
     msg['Subject'] = "TESTE SEND"
-    msg['From'] = 'douglasalisson27@gmail.com'
-    msg['To'] = 'douglasalisson27@gmail.com'
-    password = 'vjdwrygwfofaidmx'
+    msg['From'] = 'From Email'
+    msg['To'] = 'To Email'
+    password = 'password'
     msg.add_header('Content-Type', 'text/html')
     msg.set_payload(corpo_email )
 
@@ -38,4 +38,3 @@ while True:
         cotacao_anterior = cotacao_atual
         print(cotacao_atual)
     sleep(10)
-
